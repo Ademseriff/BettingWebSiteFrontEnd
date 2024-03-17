@@ -1,0 +1,38 @@
+﻿@using BettingWebSiteFUserInterface.ViewModels
+@using Shared.Events
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<MatchOddsVm>;
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Maç Saati</th>
+            <th scope="col">Hangi Lig</th>
+            <th scope="col">Ev Sahibi Takım</th>
+            <th scope="col">Deplasman</th>
+            <th scope="col">MS 1</th>
+            <th scope="col">MS 0</th>
+            <th scope="col">MS 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <th scope="row">*</th>
+                <td>@item.MatchTime</td>
+                <td>@item.League</td>
+                <td>@item.Team1</td>
+                <td>@item.Team2</td>
+                <td>@item.Ms1</td>
+                <td>@item.Ms0</td>
+                <td>@item.Ms2</td>
+            </tr>
+        }
+  
+    </tbody>
+</table>
