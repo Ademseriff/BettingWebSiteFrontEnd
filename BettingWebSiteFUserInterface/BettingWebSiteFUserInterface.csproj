@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\sneat-1.0.0\.github\workflows\handle-new-issue-comment.yml" />
+    <None Include="wwwroot\sneat-1.0.0\.github\workflows\handle-new-issue.yml" />
+    <None Include="wwwroot\sneat-1.0.0\.github\workflows\issue-staler.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.3" />
   </ItemGroup>
 

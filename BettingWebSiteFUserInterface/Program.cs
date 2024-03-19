@@ -1,5 +1,7 @@
+using BettingWebSiteFUserInterface.Consumers;
 using MassTransit;
 using MatchOddsApi.Consumers;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Shared;
 
 namespace BettingWebSiteFUserInterface
@@ -16,13 +18,27 @@ namespace BettingWebSiteFUserInterface
             {
 
                 configurator.AddConsumer<GetMatchOddsConsumers>();
+                configurator.AddConsumer<UserLoginCheckEventConsumer>();
                 configurator.UsingRabbitMq((contex, _configure) =>
                 {
                     _configure.Host(builder.Configuration["RabbitMq"]);
 
                     _configure.ReceiveEndpoint(RabbitMQSettings.UserInterface_matchoddsresponseEventQueue, e => e.ConfigureConsumer<GetMatchOddsConsumers>(contex));
+
+                    _configure.ReceiveEndpoint(RabbitMQSettings.UserInterface_CustomerCheckResponse, e => e.ConfigureConsumer<UserLoginCheckEventConsumer>(contex));
                 });
             });
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>
+            {
+                opt.Cookie.Name = "website";
+                opt.LoginPath = new PathString("/Auth/Auth1/Login");
+                opt.LogoutPath = new PathString("/Auth/Auth1/Logout");
+                //opt.ExpireTimeSpan = TimeSpan.FromHours(24);
+                opt.ExpireTimeSpan = TimeSpan.FromSeconds(60);
+            });
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -38,11 +54,27 @@ namespace BettingWebSiteFUserInterface
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.UseEndpoints(endpoints => {
+
+                endpoints.MapAreaControllerRoute(
+                    name: "auth",
+                    areaName: "Auth",
+                    pattern: "Auth/{controller=home}/{action=Index}/{id?}"
+
+                );
+
+
+
+                endpoints.MapDefaultControllerRoute();
+
+            });
+
+            //app.MapControllerRoute(
+            //    name: "default",
+            //    pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }
