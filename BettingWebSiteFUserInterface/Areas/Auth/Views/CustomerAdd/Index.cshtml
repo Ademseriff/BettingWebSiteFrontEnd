@@ -2,7 +2,7 @@
 @{
     Layout = null;
 };
-@model UserLoginCheck;
+@model CustomerAdd;
 <!DOCTYPE html>
 
 
@@ -84,18 +84,18 @@
                         <div class="app-brand justify-content-center">
                             <a href="index.html" class="app-brand-link gap-2">
 
-                                <span class="app-brand-text demo text-body fw-bold"> 👋 WELCOME DUR BET</span>
+                                <span class="app-brand-text demo text-body fw-bold">KAYIT OL</span>
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2">Kullanıcı Panel Görüntüleme ve Kupon Oynamak için GİRİŞ YAP </h4>
+                        <h4 class="mb-2" style="color:red" >DUR BET </h4>
                         <p class="mb-4">18 Yaşından küçükler bu siteyi görüntüleyemez </p>
 
-                        <form asp-controller="Auth1" asp-action="Login" asp-area="Auth" class="mb-3" method="post">
+                        <form asp-controller="CustomerAdd" asp-action="Index" asp-area="Auth" class="mb-3" method="post">
                             <div asp-validation-summary="All"></div>
                             <div class="mb-3">
-                                <label asp-for="Tc" for="Tc" class="form-label">Tc Giriniz</label>
-                                <input asp-for="Tc" id="Tc" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                <label asp-for="HumanIdentity" for="Tc" class="form-label">Tc Giriniz</label>
+                                <input asp-for="HumanIdentity" id="Tc" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
 
                             </div>
 
@@ -105,25 +105,32 @@
 
                             </div>
 
+                            <div class="mb-3">
+                                <label asp-for="Name" for="Password" class="form-label">İsim giriniz</label>
+                                <input asp-for="Name" id="Password" class="form-control"  />
+
+                            </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                                <label asp-for="Surname" for="Password" class="form-label">Soyad giriniz</label>
+                                <input asp-for="Surname" id="Password" class="form-control" />
+
+                            </div>
+
+                            <div class="mb-3">
+                                <button class="btn btn-primary d-grid w-100" type="submit">Kayıt Ol</button>
                             </div>
                         </form>
-                        <div class="mb-3">
-                            <form asp-controller="CustomerAdd" asp-action="Index" asp-area="Auth" class="mb-3" method="get">
-                            <button class="btn btn-primary d-grid w-100" type="submit">Sign up</button>
-                            </form>
-                        </div>
+                     
 
                     </div>
                 </div>
-                <!-- /Register -->
+   
             </div>
         </div>
     </div>
 
-    <!-- / Content -->
+
 
 
 
@@ -133,8 +140,6 @@
     </div>
 
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
 
     <script src="~/sneat-1.0.0/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="~/sneat-1.0.0/assets/vendor/libs/popper/popper.js"></script>
@@ -142,18 +147,16 @@
     <script src="~/sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="~/sneat-1.0.0/assets/vendor/js/menu.js"></script>
 
-    <!-- endbuild -->
-    <!-- Vendors JS -->
+
     <!-- Main JS -->
     <script src="~/sneat-1.0.0/assets/js/main.js"></script>
 
 
     <!-- Page JS -->
-    <!-- Place this tag in your head or just before your close body tag. -->
+   
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 </body>
 
 </html>
 
-<!-- beautify ignore:end -->

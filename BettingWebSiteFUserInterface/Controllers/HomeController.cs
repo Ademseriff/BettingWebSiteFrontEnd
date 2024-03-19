@@ -1,4 +1,5 @@
 ﻿
+using BettingWebSiteFUserInterface.ViewModels;
 using MassTransit;
 using MatchOddsApi.Consumers;
 using Microsoft.AspNetCore.Authorization;
@@ -19,15 +20,25 @@ namespace BettingWebSiteFUserInterface.Controllers
             _logger = logger;
             this.publishEndpoint = publishEndpoint;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             await publishEndpoint.Publish(new MatchOddsEventRequest() { });
             await Task.Delay(TimeSpan.FromSeconds(12));
 
+            ViewBag.matchodds = GetMatchOddsConsumers.matchOddsVmList;
+            return View();
+
+            //return View(GetMatchOddsConsumers.matchOddsVmList);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(MatchOddsVm matchOddsVm)
+        {
            
 
-            return View(GetMatchOddsConsumers.matchOddsVmList);
+
+
+            return View();
         }
         [HttpGet]
         public IActionResult Privacy()

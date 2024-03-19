@@ -65,21 +65,7 @@ namespace BettingWebSiteFUserInterface.Areas.Auth.Controllers
                 
             }
             return View();
-            //var claims = new List<Claim>
-            //              {
-            //              new Claim("tc",userLoginCheck.Tc)
-            //           // Daha fazla kullanıcı bilgisi ekleyebilirsiniz.
-                       
-
-            //               };
-            ////    // Kimlik oluşturma
-            //var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            //// Kimlik oluşturup kullanıcıyı giriş yapmış olarak işaretleme
-            //var principal = new ClaimsPrincipal(identity);
-            //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-            //return RedirectToAction("Privacy", "Home", new { Area = "" });
+        
         }
 
 
