@@ -19,6 +19,7 @@ namespace BettingWebSiteFUserInterface
 
                 configurator.AddConsumer<GetMatchOddsConsumers>();
                 configurator.AddConsumer<UserLoginCheckEventConsumer>();
+                configurator.AddConsumer<BasketItemGetResponseEventConsumer>();
                 configurator.UsingRabbitMq((contex, _configure) =>
                 {
                     _configure.Host(builder.Configuration["RabbitMq"]);
@@ -26,6 +27,8 @@ namespace BettingWebSiteFUserInterface
                     _configure.ReceiveEndpoint(RabbitMQSettings.UserInterface_matchoddsresponseEventQueue, e => e.ConfigureConsumer<GetMatchOddsConsumers>(contex));
 
                     _configure.ReceiveEndpoint(RabbitMQSettings.UserInterface_CustomerCheckResponse, e => e.ConfigureConsumer<UserLoginCheckEventConsumer>(contex));
+
+                    _configure.ReceiveEndpoint(RabbitMQSettings.UserInterface_BasketItemGetResponseEvent, e => e.ConfigureConsumer<BasketItemGetResponseEventConsumer>(contex));
                 });
             });
 
@@ -34,7 +37,7 @@ namespace BettingWebSiteFUserInterface
                 opt.Cookie.Name = "website";
                 opt.LoginPath = new PathString("/Auth/Auth1/Login");
                 opt.LogoutPath = new PathString("/Auth/Auth1/Logout");
-                //opt.ExpireTimeSpan = TimeSpan.FromHours(24);
+                //opt.ExpireTimeSpan = TimeSpan.FromHours(2);
                 opt.ExpireTimeSpan = TimeSpan.FromSeconds(60);
             });
 

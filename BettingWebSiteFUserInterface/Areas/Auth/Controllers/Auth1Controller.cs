@@ -15,7 +15,7 @@ namespace BettingWebSiteFUserInterface.Areas.Auth.Controllers
     public class Auth1Controller : Controller
     {
         private readonly IPublishEndpoint publishEndpoint;
-
+        public static UserLoginCheckEvent userLoginCheckEventstatic = new();
         public Auth1Controller(IPublishEndpoint publishEndpoint)
         {
             this.publishEndpoint = publishEndpoint;
@@ -36,13 +36,13 @@ namespace BettingWebSiteFUserInterface.Areas.Auth.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginCheck userLoginCheck)
         {
-            UserLoginCheckEvent userLoginCheckEvent = new();
+          
 
             if (userLoginCheck != null)
             {
-                userLoginCheckEvent.Tc = userLoginCheck.Tc;
-                userLoginCheckEvent.Password = userLoginCheck.Password;
-                await publishEndpoint.Publish(userLoginCheckEvent);
+                userLoginCheckEventstatic.Tc = userLoginCheck.Tc;
+                userLoginCheckEventstatic.Password = userLoginCheck.Password;
+                await publishEndpoint.Publish(userLoginCheckEventstatic);
                 await Task.Delay(8000);
                 if (UserLoginCheckEventConsumer.IsValid)
                 {
