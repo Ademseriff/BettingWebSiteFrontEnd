@@ -1,13 +1,16 @@
 ﻿
 using BettingWebSiteFUserInterface.Areas.Auth.Controllers;
 using BettingWebSiteFUserInterface.Consumers;
+using BettingWebSiteFUserInterface.Models;
 using BettingWebSiteFUserInterface.ViewModels;
 using MassTransit;
 using MatchOddsApi.Consumers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Shared.Events;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace BettingWebSiteFUserInterface.Controllers
 {
@@ -16,7 +19,7 @@ namespace BettingWebSiteFUserInterface.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPublishEndpoint publishEndpoint;
-
+        public static float TotalRateStatic = 1;
         public HomeController(ILogger<HomeController> logger,IPublishEndpoint publishEndpoint)
         {
             _logger = logger;
@@ -31,7 +34,7 @@ namespace BettingWebSiteFUserInterface.Controllers
             ViewBag.matchodds = GetMatchOddsConsumers.matchOddsVmList;
             return View();
 
-            //return View(GetMatchOddsConsumers.matchOddsVmList);
+         
         }
         [HttpPost]
         public async Task<IActionResult> Index(MatchOddsVm matchOddsVm)
@@ -85,16 +88,68 @@ namespace BettingWebSiteFUserInterface.Controllers
             }
 
             await  Task.Delay(6000);
+            float TotalRate = 1;
+            List<BasketVm> basketVms = new();
+            if(BasketItemGetResponseEventConsumer.basketItemGetResponseEventstatic.messages != null)
+            {
+                foreach (var a in BasketItemGetResponseEventConsumer.basketItemGetResponseEventstatic.messages)
+                {
+                    float rate;
+                    if (float.TryParse(a.Rate, NumberStyles.Any, CultureInfo.InvariantCulture, out rate))
+                    {
+                        TotalRate *= rate;
+                    }
+                    else
+                    {
+                        // Rate bir string olarak dönüştürülemediğinde yapılacak işlem
+                        // Hata işleme veya loglama gibi bir işlem yapılabilir.
+                    }
+                }
 
+                TotalRateStatic = TotalRate;
+                basketVms = BasketItemGetResponseEventConsumer.basketItemGetResponseEventstatic.messages.Select(s => new BasketVm()
+                {
 
-            ViewBag.BasketItemGetResponseEventConsumer = BasketItemGetResponseEventConsumer.basketItemGetResponseEventstatic;
+                    Rate = s.Rate,
+                    MatchSide = s.MatchSide,
+                    Tc = s.Tc,
+                    Team1 = s.Team1,
+                    Team2 = s.Team2,
+                    TotalRate = TotalRate
+                }).ToList();
+            }
+            else
+            {
+                basketVms.Add(new BasketVm()
+                {
+                    Rate ="0",
+                    TotalRate =0,
+                    MatchSide =Shared.Enums.MatchSideEnum.ms0,
+                    Tc ="0",
+                    Team1 = "0",
+                    Team2 = "0"
+                });
+            }
 
-            return View();
+            return View(basketVms);
 
            
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Sepet(string basketVMJson)
+        {
+            List<BasketVm> basketVM = JsonConvert.DeserializeObject<List<BasketVm>>(basketVMJson);
 
+            var a = 0;
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult LoadPay()
+        {
+            return View();
+        }
 
         [HttpGet]
         public IActionResult Privacy()

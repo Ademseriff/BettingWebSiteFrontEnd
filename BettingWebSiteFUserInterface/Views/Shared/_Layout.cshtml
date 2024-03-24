@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using BettingWebSiteFUserInterface.Areas.Auth.Controllers
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,12 +18,24 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LoadPay">Para Yükle</a>
+                        </li>
                     </ul>
+                 
+
+                    <div id="totalPrice">
+                        Cüzdanım: @Auth1Controller.userLoginCheckEventstatic.TotalPrice $
+                    </div>
+                  
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Sepet" asp-area="">Sepet</a>
@@ -35,25 +48,7 @@
                 </div>
             </div>
 
-           @*  <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="color:red">DUR BET</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
-                        </li>
-                      
-
-                        <li class="nav-item ml-auto">
-                            <a class="nav-link text-dark" href="#">Sepet</a>
-                        </li>
-                    </ul>
-                </div>
-            </div> *@
+   
         </nav>
     </header>
     <div class="container">
@@ -64,7 +59,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - BettingWebSiteFUserInterface - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+          2024 - DUR BET - 
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

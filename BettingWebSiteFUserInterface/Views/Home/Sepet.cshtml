@@ -1,6 +1,42 @@
-﻿@using BettingWebSiteFUserInterface.ViewModels
+﻿@using BettingWebSiteFUserInterface.Controllers
+@using BettingWebSiteFUserInterface.ViewModels
 @using Shared.Events
 @{
     ViewData["Title"] = "Sepet Page";
 }
+@model List<BasketVm>;
 
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Team 1</th>
+            <th>Team 2</th>
+            <th>Match Side</th>
+            <th>Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Team1</td>
+                <td>@item.Team2</td>
+                <td>@item.MatchSide</td>
+                <td>@item.Rate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="ToplamOran:">
+    Toplam Kupon Oranı: @HomeController.TotalRateStatic $
+</div>
+
+<form asp-action="Sepet" asp-controller="Home" method="post">
+
+ 
+    <input type="hidden" name="basketVMJson" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model)" />
+    <button type="submit" style="color:yellowgreen">Kuponumu Onayla</button>
+
+</form>
