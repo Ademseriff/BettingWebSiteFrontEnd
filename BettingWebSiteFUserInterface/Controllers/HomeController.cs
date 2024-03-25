@@ -139,10 +139,30 @@ namespace BettingWebSiteFUserInterface.Controllers
         [HttpPost]
         public async Task<IActionResult> Sepet(string basketVMJson,string Tutar,string TotalMoney,string TotalRate)
         {
+            
             List<BasketVm> basketVM = JsonConvert.DeserializeObject<List<BasketVm>>(basketVMJson);
+            if(basketVM != null)
+            {
+                OrderComplatedEvent orderComplatedEvent = new()
+                {
+                 PaidMoney = Tutar,
+                 TotalMoney = TotalMoney,
+                 TotalRate=TotalRate,
+                  state = Shared.Enums.StateEnum.suspend, 
+                 contentLists = basketVM.Select(oi => new Shared.Messages.OrderComplatedEventMessage()
+                 {
+                     Tc = oi.Tc,
+                     MatchSide =oi.MatchSide,
+                     Team1 =oi.Team1,
+                     Team2 = oi.Team2
+                 }).ToList()
+                };
+                await publishEndpoint.Publish(orderComplatedEvent);
+                return RedirectToAction("LoadPay", "Home", new { Area = "" });
+            }
 
-            var a = 0;
-            return View();
+
+            return RedirectToAction("LoadPay", "Home", new { Area = "" });
         }
 
         [HttpGet]
