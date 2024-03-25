@@ -38,7 +38,7 @@ namespace BettingWebSiteFUserInterface
                 opt.LoginPath = new PathString("/Auth/Auth1/Login");
                 opt.LogoutPath = new PathString("/Auth/Auth1/Logout");
                 //opt.ExpireTimeSpan = TimeSpan.FromHours(2);
-                opt.ExpireTimeSpan = TimeSpan.FromSeconds(60);
+                opt.ExpireTimeSpan = TimeSpan.FromSeconds(300);
             });
 
 

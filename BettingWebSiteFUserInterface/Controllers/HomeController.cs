@@ -137,7 +137,7 @@ namespace BettingWebSiteFUserInterface.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Sepet(string basketVMJson)
+        public async Task<IActionResult> Sepet(string basketVMJson,string Tutar,string TotalMoney,string TotalRate)
         {
             List<BasketVm> basketVM = JsonConvert.DeserializeObject<List<BasketVm>>(basketVMJson);
 

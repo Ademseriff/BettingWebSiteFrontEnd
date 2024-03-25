@@ -1,4 +1,5 @@
-﻿@using BettingWebSiteFUserInterface.Controllers
+﻿@using BettingWebSiteFUserInterface.Areas.Auth.Controllers
+@using BettingWebSiteFUserInterface.Controllers
 @using BettingWebSiteFUserInterface.ViewModels
 @using Shared.Events
 @{
@@ -33,10 +34,46 @@
     Toplam Kupon Oranı: @HomeController.TotalRateStatic $
 </div>
 
-<form asp-action="Sepet" asp-controller="Home" method="post">
 
- 
+
+<form asp-action="Sepet" asp-controller="Home" method="post" onsubmit="return validateForm()">
     <input type="hidden" name="basketVMJson" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model)" />
-    <button type="submit" style="color:yellowgreen">Kuponumu Onayla</button>
-
+    <label>Oynanacak bahis miktarı</label>
+    <input type="text" id="tutar" name="Tutar" oninput="showEnteredValueAndTotal()" />
+    <input type="checkbox" id="balanceCheck" style="display: none;" />
+    <input type="hidden" id="totalMoney" name="TotalMoney" />
+    <input type="hidden"  name="TotalRate" value="@HomeController.TotalRateStatic" />
+    <label id="balanceLabel" style="display: none; color: red;">Bakiyeniz yetersiz!</label>
+    <button type="submit" style="color: yellowgreen">Kuponumu Onayla</button>
+    <br>
+    <label id="enteredValueLabel"></label> <!-- Girilen değeri gösterecek olan etiket -->
+    <br>
+    <label>Makismum Kazanç</label>
+  
+    <label id="totalAmountLabel" name="TotalMoney" style="color:forestgreen"></label> <!-- Girilen değer ile toplam oranın çarpımını gösterecek olan etiket -->
 </form>
+
+<script>
+    function validateForm() {
+        var tutar = parseFloat(document.getElementById("tutar").value);
+        var totalPrice = parseFloat("@Auth1Controller.userLoginCheckEventstatic.TotalPrice");
+
+        if (tutar > totalPrice) {
+            document.getElementById("balanceCheck").checked = true;
+            document.getElementById("balanceLabel").style.display = "block";
+            return false; // Formun gönderilmesini engelle
+        }
+        alert("Kuponunuz başarıyla oynanmıştır!");
+        return true; // Formun gönderilmesine izin ver
+    }
+
+    function showEnteredValueAndTotal() {
+        var tutar = parseFloat(document.getElementById("tutar").value);
+        var totalRate = parseFloat("@HomeController.TotalRateStatic");
+        var totalAmount = tutar * totalRate;
+
+        document.getElementById("enteredValueLabel").innerText = "Kupona Oynanılan Dolar: " + tutar +"$";
+        document.getElementById("totalAmountLabel").innerText = "Toplam: " + parseFloat(totalAmount) + "$";
+        document.getElementById("totalMoney").value = totalAmount;
+    }
+</script>
