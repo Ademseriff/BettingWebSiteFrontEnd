@@ -157,6 +157,12 @@ namespace BettingWebSiteFUserInterface.Controllers
                      Team2 = oi.Team2
                  }).ToList()
                 };
+                MoneyDecreaseEvent moneyDecreaseEvent = new()
+                {
+                    Tc = Auth1Controller.userLoginCheckEventstatic.Tc,
+                    Money = Tutar
+                };
+                await publishEndpoint.Publish(moneyDecreaseEvent);
                 await publishEndpoint.Publish(orderComplatedEvent);
                 return RedirectToAction("LoadPay", "Home", new { Area = "" });
             }
