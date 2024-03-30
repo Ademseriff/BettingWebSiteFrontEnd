@@ -160,7 +160,8 @@ namespace BettingWebSiteFUserInterface.Controllers
                 MoneyDecreaseEvent moneyDecreaseEvent = new()
                 {
                     Tc = Auth1Controller.userLoginCheckEventstatic.Tc,
-                    Money = Tutar
+                    Money = Tutar,
+                    WhiceSide = Shared.Enums.MoneyTransactionEnum.minus
                 };
                 await publishEndpoint.Publish(moneyDecreaseEvent);
                 await publishEndpoint.Publish(orderComplatedEvent);
