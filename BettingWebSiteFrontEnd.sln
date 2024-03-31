@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BettingWebSiteFUserInterface", "BettingWebSiteFUserInterface\BettingWebSiteFUserInterface.csproj", "{671DB43D-E184-4853-B046-42AA278FA145}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BettingWebSiteFUserInterface", "BettingWebSiteFUserInterface\BettingWebSiteFUserInterface.csproj", "{671DB43D-E184-4853-B046-42AA278FA145}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{D01E9063-B249-4B66-898F-4A0051AB2CBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{D01E9063-B249-4B66-898F-4A0051AB2CBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BettingWebSiteBackEnd", "BettingWebSiteBackEnd\BettingWebSiteBackEnd.csproj", "{D9BE0B01-5990-431E-900D-0EB21235AFFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D01E9063-B249-4B66-898F-4A0051AB2CBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D01E9063-B249-4B66-898F-4A0051AB2CBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D01E9063-B249-4B66-898F-4A0051AB2CBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9BE0B01-5990-431E-900D-0EB21235AFFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9BE0B01-5990-431E-900D-0EB21235AFFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9BE0B01-5990-431E-900D-0EB21235AFFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9BE0B01-5990-431E-900D-0EB21235AFFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
