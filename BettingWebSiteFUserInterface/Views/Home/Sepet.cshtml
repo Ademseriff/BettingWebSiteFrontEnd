@@ -53,6 +53,11 @@
     <label id="totalAmountLabel" name="TotalMoney" style="color:forestgreen"></label> <!-- Girilen değer ile toplam oranın çarpımını gösterecek olan etiket -->
 </form>
 
+<form asp-action="BasketClear" asp-area="" asp-controller="Home">
+    <input type="hidden" name="Tc" id ="Tc" value="@Auth1Controller.userLoginCheckEventstatic.Tc" />
+    <button type="submit" style="color: red">Sepeti Temizle</button>
+</form>
+
 <script>
     function validateForm() {
         var tutar = parseFloat(document.getElementById("tutar").value);

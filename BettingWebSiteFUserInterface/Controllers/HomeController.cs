@@ -163,12 +163,32 @@ namespace BettingWebSiteFUserInterface.Controllers
                     Money = Tutar,
                     WhiceSide = Shared.Enums.MoneyTransactionEnum.minus
                 };
+                BasketClearEvent basketClearEvent = new()
+                {
+                    Tc = basketVM[0].Tc,
+                };
+              
                 await publishEndpoint.Publish(moneyDecreaseEvent);
                 await publishEndpoint.Publish(orderComplatedEvent);
+                await publishEndpoint.Publish(basketClearEvent);
                 return RedirectToAction("LoadPay", "Home", new { Area = "" });
             }
 
 
+            return RedirectToAction("LoadPay", "Home", new { Area = "" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BasketClear(string Tc)
+        {
+            if (Tc != null)
+            {
+                BasketClearEvent basketClearEvent = new()
+                {
+                    Tc = Tc,
+                };
+              await  publishEndpoint.Publish(basketClearEvent);
+            }
             return RedirectToAction("LoadPay", "Home", new { Area = "" });
         }
 

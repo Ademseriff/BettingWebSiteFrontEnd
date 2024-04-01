@@ -32,5 +32,9 @@ namespace Shared
         public const string MoneyTransactionsApi_MoneyDecreaseEventqueue = "MoneyTransactionsApi_MoneyDecreaseEventqueue";
 
         public const string BettingWebSiteBackup_GetCouponsEventqueue = "BettingWebSiteBackup_GetCouponsEventqueue";
+
+        public const string BasketApi_ClearBasketEventqueue = "BasketApi_ClearBasketEventqueue";
+
+        public const string MoneyTransactionApi_AddMoneyEventqueue = "MoneyTransactionApi_AddMoneyEventqueue";
     }
 }

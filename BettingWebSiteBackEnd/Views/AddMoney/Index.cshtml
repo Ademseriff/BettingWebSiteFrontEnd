@@ -1,0 +1,37 @@
+﻿@using Shared.Events
+@model MoneyIncreaseEvent
+<form id="moneyIncreaseForm" asp-action="Index" method="post">
+    <div class="form-container" style="overflow: hidden;">
+        <div class="form-group" style="margin-right: 50px; margin-left: 50px; text-align: center;">
+            <label style="display: block; margin: 0 auto; width: fit-content;">Kullanıcıya Para Ekle</label>
+        </div>
+        <div class="form-group" style="margin-right: 50px; margin-left: 50px;">
+            <label for="tc">TC:</label>
+            <input type="text" class="form-control" id="tc" name="Tc" maxlength="11">
+            <div id="tcError" class="text-danger"></div>
+        </div>
+        <div class="form-group" style="margin-right: 50px; margin-left: 50px;">
+            <label for="money">Para(eklenecek para dolar olacaktır):</label>
+            <input type="text" class="form-control" id="money" name="Money">
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-right: 50px; margin-left: 50px;">Gönder</button>
+    </div>
+</form>
+
+
+<script>
+    document.getElementById("moneyIncreaseForm").addEventListener("submit", function (event) {
+        var tcInput = document.getElementById("tc");
+        var tcValue = tcInput.value.trim();
+
+        if (tcValue.length !== 11 || isNaN(tcValue)) {
+            event.preventDefault();
+            document.getElementById("tcError").innerText = "TC kimlik numarası 11 haneli olmalıdır.";
+        } else {
+            document.getElementById("tcError").innerText = "";
+            // Başarılı gönderim durumunda alert göster
+            alert("Gönderildi");
+        }
+    });
+</script>
+
