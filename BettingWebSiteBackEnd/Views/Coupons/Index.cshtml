@@ -95,6 +95,27 @@
                         }
                        
                     </td>
+
+                    <td>
+                        <form asp-action="CouponsOkey" asp-controller="Coupons" method="post">
+                            <input type="hidden" name="Tc" value="@x.orderContentContents.FirstOrDefault().Tc" />
+                            <input type="hidden" name="TotalMoney" value="@x.TotalMoney" />
+                            <input type="hidden" name="TotalRate" value="@x.TotalRate" />
+                            <!-- Diğer gizli alanlar için gerekli bilgileri ekleyin -->
+                            <button type="submit" style="background-color:forestgreen">Kupon Onayla</button>
+                        </form>
+                    </td>
+
+                    <td>
+                        <form asp-action="CouponsDenied" asp-controller="Coupons" method="post">
+                            <input type="hidden" name="Tc" value="@x.orderContentContents.FirstOrDefault().Tc" />
+                            <input type="hidden" name="TotalMoney" value="@x.TotalMoney" />
+                            <input type="hidden" name="TotalRate" value="@x.TotalRate" />
+                            <!-- Diğer gizli alanlar için gerekli bilgileri ekleyin -->
+                            <button type="submit" style="background-color:red">Kupon Reddet</button>
+                        </form>
+                    </td>
+
                 </tr>
             }
         </tbody>
