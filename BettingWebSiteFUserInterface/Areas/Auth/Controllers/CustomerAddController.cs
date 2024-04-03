@@ -9,7 +9,7 @@ namespace BettingWebSiteFUserInterface.Areas.Auth.Controllers
     public class CustomerAddController : Controller
     {
         private readonly IPublishEndpoint publishEndpoint;
-
+        public static string CustumerAddStaticMail;
         public CustomerAddController(IPublishEndpoint publishEndpoint)
         {
             this.publishEndpoint = publishEndpoint;
@@ -32,7 +32,20 @@ namespace BettingWebSiteFUserInterface.Areas.Auth.Controllers
                     Name = customerAdd.Name,
                     Password = customerAdd.Password,
                     Surname = customerAdd.Surname,
+                    EMail = customerAdd.EMail,
+                    
                 });
+                if(customerAdd.EMail != null) {
+                    CustumerAddStaticMail = customerAdd.EMail;
+                    await publishEndpoint.Publish(new MailSentEvent()
+                    {
+                        EMail = customerAdd.EMail,
+                        Price = 0,
+                        State = Shared.Enums.MailEnum.CustomerAdd,
+                
+                    });
+                }
+           
             }
             return View();
         }

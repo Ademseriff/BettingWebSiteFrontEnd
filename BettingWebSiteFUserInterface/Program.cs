@@ -16,10 +16,11 @@ namespace BettingWebSiteFUserInterface
             builder.Services.AddControllersWithViews();
             builder.Services.AddMassTransit(configurator =>
             {
-
+                //MailGetEventResponseConsumer
                 configurator.AddConsumer<GetMatchOddsConsumers>();
                 configurator.AddConsumer<UserLoginCheckEventConsumer>();
                 configurator.AddConsumer<BasketItemGetResponseEventConsumer>();
+                configurator.AddConsumer<MailGetEventResponseConsumer>();
                 configurator.UsingRabbitMq((contex, _configure) =>
                 {
                     _configure.Host(builder.Configuration["RabbitMq"]);
@@ -29,6 +30,8 @@ namespace BettingWebSiteFUserInterface
                     _configure.ReceiveEndpoint(RabbitMQSettings.UserInterface_CustomerCheckResponse, e => e.ConfigureConsumer<UserLoginCheckEventConsumer>(contex));
 
                     _configure.ReceiveEndpoint(RabbitMQSettings.UserInterface_BasketItemGetResponseEvent, e => e.ConfigureConsumer<BasketItemGetResponseEventConsumer>(contex));
+
+                    _configure.ReceiveEndpoint(RabbitMQSettings.UserInterface_MailGetEventResponseQueue, e => e.ConfigureConsumer<MailGetEventResponseConsumer>(contex));
                 });
             });
 

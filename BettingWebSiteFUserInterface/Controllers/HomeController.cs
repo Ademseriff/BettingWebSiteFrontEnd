@@ -28,6 +28,11 @@ namespace BettingWebSiteFUserInterface.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            MailGetEventRequest mailGetEventRequest = new()
+            {
+                Tc = Auth1Controller.userLoginCheckEventstatic.Tc
+            };
+            await publishEndpoint.Publish(mailGetEventRequest);
             await publishEndpoint.Publish(new MatchOddsEventRequest() { });
             await Task.Delay(TimeSpan.FromSeconds(12));
 
@@ -167,7 +172,20 @@ namespace BettingWebSiteFUserInterface.Controllers
                 {
                     Tc = basketVM[0].Tc,
                 };
-              
+            
+               
+                if(MailGetEventResponseConsumer.Email != null)
+                {
+                    MailSentEvent mailSentEvent = new()
+                    {
+
+                        Price = int.Parse(TotalMoney),
+                        State = Shared.Enums.MailEnum.MoneyDiscard,
+                        EMail = MailGetEventResponseConsumer.Email
+
+                    };
+                    await publishEndpoint.Publish(mailSentEvent);
+                }
                 await publishEndpoint.Publish(moneyDecreaseEvent);
                 await publishEndpoint.Publish(orderComplatedEvent);
                 await publishEndpoint.Publish(basketClearEvent);

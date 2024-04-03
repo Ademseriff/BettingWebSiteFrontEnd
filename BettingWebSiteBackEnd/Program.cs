@@ -13,12 +13,14 @@ namespace BettingWebSiteBackEnd
             // Add services to the container.
             builder.Services.AddMassTransit(configurator =>
             {
-
+                //MailGetEventResponseConsumer
                 configurator.AddConsumer<OrderGetEventResponseEventConsumer>();
+                configurator.AddConsumer<MailGetEventResponseConsumer>();
                 configurator.UsingRabbitMq((contex, _configure) =>
                 {
                     _configure.Host(builder.Configuration["RabbitMq"]);
                     _configure.ReceiveEndpoint(RabbitMQSettings.BettingWebSiteBackup_GetCouponsEventqueue, e => e.ConfigureConsumer<OrderGetEventResponseEventConsumer>(contex));
+                    _configure.ReceiveEndpoint(RabbitMQSettings.BettingWebSite_MailGetEventResponseQueue, e => e.ConfigureConsumer<MailGetEventResponseConsumer>(contex));
                 });
             });
 
