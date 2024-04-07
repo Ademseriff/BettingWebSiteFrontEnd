@@ -53,7 +53,19 @@ namespace BettingWebSiteBackEnd.Controllers
             TotalMoney = TotalMoney,
             TotalRate = TotalRate
             };
-
+            MailGetEventRequest mailGetEventRequest = new()
+            {
+                Tc = Tc
+            };
+            await publishEndpoint.Publish(mailGetEventRequest);
+            await Task.Delay(6000);
+            MailSentEvent mailSentEvent = new()
+            {
+                EMail = MailGetEventResponseConsumer.Email,
+                Price = int.Parse(TotalMoney),
+                State = Shared.Enums.MailEnum.MoneyAdd
+            };
+            await publishEndpoint.Publish(mailSentEvent);
             await publishEndpoint.Publish(moneyIncreaseEvent);
             await publishEndpoint.Publish(couponComplatedEvent);
             return RedirectToAction("Index", "Home", new { Area = "" });

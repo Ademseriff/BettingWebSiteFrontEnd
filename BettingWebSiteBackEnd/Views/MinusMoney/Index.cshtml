@@ -1,0 +1,43 @@
+﻿@using Shared.Events
+@model MoneyDecreaseEvent
+<form id="moneyIncreaseForm" asp-action="Index" method="post">
+    <div class="form-container" style="overflow: hidden;">
+        <div class="form-group" style="margin-right: 50px; margin-left: 50px; text-align: center;">
+            <label style="display: block; margin: 0 auto; width: fit-content;">Kullanıcıdan Para Eksilt</label>
+        </div>
+        <div class="form-group" style="margin-right: 50px; margin-left: 50px;">
+            <label for="tc">TC:</label>
+            <input type="text" class="form-control" id="tc" name="Tc" maxlength="11">
+            <div id="tcError" class="text-danger"></div>
+        </div>
+        <div class="form-group" style="margin-right: 50px; margin-left: 50px;">
+            <label for="money">Para(eklenecek para dolar olacaktır):</label>
+            <input type="text" class="form-control" id="money" name="Money">
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-right: 50px; margin-left: 50px;">Eksilt</button>
+    </div>
+</form>
+
+<div style="background-color: #ffe6e6; color: #cc0000; padding: 10px; border: 2px solid #cc0000; border-radius: 5px;">
+    <strong>Uyarı:</strong> Kullanıcı parasından büyük eksiltmelerde, kullanıcı bakiyesi sıfırlanır  eksiye düşmez!
+</div>
+
+
+
+<script>
+    document.getElementById("moneyIncreaseForm").addEventListener("submit", function (event) {
+        var tcInput = document.getElementById("tc");
+        var tcValue = tcInput.value.trim();
+
+        if (tcValue.length !== 11 || isNaN(tcValue)) {
+            event.preventDefault();
+            document.getElementById("tcError").innerText = "TC kimlik numarası 11 haneli olmalıdır.";
+        } else {
+            document.getElementById("tcError").innerText = "";
+            // Başarılı gönderim durumunda alert göster
+            alert("Gönderildi");
+        }
+    });
+</script>
+
+

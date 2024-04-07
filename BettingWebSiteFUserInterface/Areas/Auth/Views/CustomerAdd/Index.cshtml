@@ -21,6 +21,8 @@
     <!-- Canonical SEO -->
     <link rel="canonical" href="https://themeselection.com/item/sneat-bootstrap-html-admin-template/">
 
+ 
+
 
     <!-- ? PROD Only: Google Tag Manager (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
     <script>
@@ -126,6 +128,8 @@
 
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Kayıt Ol</button>
+
+
                             </div>
                         </form>
                      
@@ -147,6 +151,9 @@
     </div>
 
 
+   
+
+
 
     <script src="~/sneat-1.0.0/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="~/sneat-1.0.0/assets/vendor/libs/popper/popper.js"></script>
@@ -160,7 +167,30 @@
 
 
     <!-- Page JS -->
-   
+    <!-- Butonun tetikleyeceği alert kutusunu gösteren JavaScript kodu -->
+    <!-- Butonun tetikleyeceği alert kutusunu gösteren JavaScript kodu -->
+    <!-- Butonun tetikleyeceği alert kutusunu gösteren JavaScript kodu -->
+    <script>
+        // DOM tamamen yüklendiğinde bu kod çalışacak
+        document.addEventListener("DOMContentLoaded", function () {
+            // Buton öğesini bul ve tıklama olayını dinle
+            document.querySelector('.btn-primary').addEventListener('click', function (event) {
+                // Butonun varsayılan davranışını engelle
+                event.preventDefault();
+                // Formu bul
+                var form = document.querySelector('form');
+                // Formu gönder
+                form.submit();
+                // Alert kutusunda hoşgeldiniz mesajını göster
+                alert('Hoşgeldiniz!');
+            });
+        });
+    </script>
+
+
+
+
+
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 </body>
